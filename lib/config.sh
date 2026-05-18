@@ -141,7 +141,10 @@ update_profile_section() {
     local new_items=("$@")
 
     local existing_items=()
-    readarray -t existing_items < <(read_profile_section "$profile_file" "$section")
+    local _line=""
+    while IFS= read -r _line; do
+        existing_items+=("$_line")
+    done < <(read_profile_section "$profile_file" "$section")
 
     local all_items=()
     local item=""
